@@ -1,12 +1,12 @@
 ## Zania PDF 📑 Chat App💬
 
-### Introduction
+### Introduction:
 
 Zania PDF Chat App is a Python-based application designed to provide an interactive way to extract and query information from PDF documents. It leverages LLM's and Langchain framework for answering queries based on the content of the uploaded PDF.
 
 ### Demo: https://youtu.be/peyhBucTaxE
 
-### Key Features
+### Key Features:
 
   - PDF Text Extraction: Extracts text from uploaded PDF files for processing.
   - Text Indexing and Search: Creates a searchable index of extracted text for efficient query handling.
@@ -15,37 +15,115 @@ Zania PDF Chat App is a Python-based application designed to provide an interact
   - Error Handling: Robust error handling and logging for stable application performance.
   - Modular Design: Cleanly structured code for easy maintenance and scalability.
 
-### File Structure
+### File Structure:
 
 The application is organized into several modules, each with a specific responsibility:
 
-     - main.py: The main script that runs the application, handles the Streamlit UI, and orchestrates the flow of the application.
-     
-     - utils/pdf_extractor.py: Handles the extraction of text from PDF files.
-     
-     - utils/indexer.py: Manages the indexing of extracted text for search and retrieval.
-     
-     - utils/confidence_measure.py: Mange and maintail logic for Checking for phrases that might indicate uncertainty
-     
-     - ui_components.py: Contains functions related to the Streamlit user interface components.
+    Zania-PDF-Chat-App/
+    │
+    ├── main.py                    # Main application script; handles Streamlit UI and app flow
+    │
+    ├── utils/                     # Utility scripts for various functionalities
+    │   ├── pdf_extractor.py       # Extracts text from PDF files
+    │   ├── indexer.py             # Creates searchable index from extracted text
+    │   └── confidence_measure.py  # Logic for determining low-confidence answers
+    │
+    ├── ui_components.py           # Functions for Streamlit UI components
+    │
+    ├── test_app.py                # Unit tests for validating components
+    │
+    └── .env                       # (Not in repository) Environment variables like OpenAI API key
 
-     - test_app.py: holds unit test function to validate the components
+### Module Responsibilities:
+
+   - pdf_extractor.py
+ ```
+  Purpose: Extracts text from a given PDF file.
+
+  Implementation: Utilizes PyPDF2.PdfReader for reading PDF files.
+
+  Function extract_text_from_pdf:
+
+       - Reads each page of the PDF and extracts text.
+
+       - Concatenates text from all pages, separated by newline characters.
+
+       - Exception handling to log errors during PDF processing.
+
+  Reason for Choice: PyPDF2 is a robust and widely-used library for handling PDF files in Python. It provides reliable mechanisms for reading and extracting text.
+ ```
+  
+  - indexer.py:
+```
+  Purpose: Creates a searchable index from the extracted text.
+
+  Implementation:
+
+      CharacterTextSplitter from langchain.text_splitter:
+
+          - Splits the text into chunks based on character count.
+
+          - chunk_size=1000 and chunk_overlap=200 are configured to balance between manageable chunk sizes and contextual overlap for better search accuracy.
+          separator="\n" ensures that the split happens at line breaks, preserving the readability of text.
+
+      OpenAI Embeddings:
+
+          Converts text chunks into vector embeddings using OpenAI's language models.
+
+      FAISS (Facebook AI Similarity Search):
+
+          Efficiently indexes these embeddings for fast similarity searching.
+
+  Reason for Choice:
+
+       - CharacterTextSplitter effectively manages large text documents by breaking them into smaller, searchable segments.
+
+       - OpenAI Embeddings provide high-quality, context-rich vector representations of text.
+
+       - FAISS is renowned for its efficiency in similarity search and indexing, making it an ideal choice for searching within large volumes of text.
+
+```
+
+  - ui_components.py:
+     ```
+     Purpose: Manages all user interface components for the Streamlit app.
+
+    Implementation:
      
-     - .env: (Not in the repository) A file for storing environment variables like the OpenAI API key.```
-
-### Module Responsibilities
-
-    - pdf_extractor.py:
-        Extracts text from a given PDF file.
-        Returns the extracted text as a string.
-    - indexer.py:
-        Splits the extracted text into manageable chunks.
-        Creates a searchable index using LangChain and FAISS.
-    - ui_components.py:
-        Houses functions for creating and managing UI components like buttons, text inputs, and displaying responses.
+        Functions to create and handle UI elements like file uploader, text input, buttons, and displaying responses.
+     
+    Reason for Choice:
+     
+        Separating UI components into a distinct module follows the principle of modularity, making the codebase more organized and maintainable.
+     ```
+     
     - main.py:
-        Initializes the application.
-        Manages the workflow of uploading PDFs, extracting text, indexing, querying, and displaying results.
+    ```
+     Purpose: Main application script that integrates all modules and runs the application using Streamlit.
+
+    Implementation:
+    
+        - Sets up the Streamlit UI using functions from ui_components.py.
+    
+        - Manages the workflow of uploading PDFs, extracting text, indexing, and querying.
+    
+        process_question Function:
+    
+             - Searches the indexed text for answers to user queries.
+             - Includes a check for low-confidence answers using is_low_confidence.
+             - temperature=0.0 in OpenAIChat is set to reduce randomness in responses, aiming for more direct and precise answers.
+    
+        Error Handling:
+    
+             - Robust error handling for issues during question processing, with user-friendly error messages.
+    
+    Reason for Choice:
+    
+         - Streamlit offers a straightforward way to create interactive web applications for Python scripts.
+    
+         - The decision to use temperature=0.0 is to prioritize deterministic responses from the model, which is suitable for a fact-based Q&A context.
+        
+    ```
 
 ### Steps to Run and Execute the Code
 
