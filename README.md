@@ -132,8 +132,8 @@ The application is organized into several modules, each with a specific responsi
 
 
   ```
-  git clone https://github.com/your-username/zania-pdf-chat-app.git
-  cd zania-pdf-chat-app
+  git clone https://github.com/your-username/LLM-pdf-chat-app.git
+  cd LLM-pdf-chat-app
 ```
 
 #### 2. Set Up a Python Environment:
