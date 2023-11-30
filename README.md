@@ -1,8 +1,8 @@
-## Zania PDF 📑 Chat App💬
+##  PDF 📑 Chat App💬
 
 ### Introduction:
 
-Zania PDF Chat App is a Python-based application designed to provide an interactive way to extract and query information from PDF documents. It leverages LLM's and Langchain framework for answering queries based on the content of the uploaded PDF.
+PDF Chat App is a Python-based application designed to provide an interactive way to extract and query information from PDF documents. It leverages LLM's and Langchain framework for answering queries based on the content of the uploaded PDF.
 
 ### Demo: https://youtu.be/peyhBucTaxE
 
@@ -19,7 +19,7 @@ Zania PDF Chat App is a Python-based application designed to provide an interact
 
 The application is organized into several modules, each with a specific responsibility:
 
-    Zania-PDF-Chat-App/
+    -PDF-Chat-App/
     │
     ├── main.py                    # Main application script; handles Streamlit UI and app flow
     │
@@ -176,4 +176,4 @@ The application is organized into several modules, each with a specific responsi
 
 ### Conclusion
 
-Zania PDF Chat App demonstrates the power of LLM techniques with user-friendly interfaces. It serves as a useful tool for extracting and interacting with information from PDF documents, showcasing the potential of AI in information retrieval and processing.
+ PDF Chat App demonstrates the power of LLM techniques with user-friendly interfaces. It serves as a useful tool for extracting and interacting with information from PDF documents, showcasing the potential of AI in information retrieval and processing.
